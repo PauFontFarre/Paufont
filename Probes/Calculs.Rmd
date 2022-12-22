@@ -1,0 +1,1738 @@
+---
+title: "CÀLCULS"
+output: html_document
+date: "2022-12-05"
+---
+
+Pujada de les dades
+
+```{r}
+library(lubridate)
+library(stringr)
+dd<-read.delim2("C:/Users/becari/Downloads/Cloperal-text.txt",header = F)
+head(dd)
+dd<-as.data.frame(dd)
+```
+
+Creació d'un data frame de les dades en format VSI1
+
+```{r}
+Granja<-c()
+Animal<-c()
+Ciclo<-c()
+Sexo<-c()
+Raza<-c()
+Fecn<-c()
+Origen<-c()
+Fece<-c()
+Baja<-c()
+Fecb<-c()
+Razon<-c()
+Rep<-c()
+Fecha.Cub<-c()
+Fecha.Cub2<-c()
+Fecha.Cub3<-c()
+Fecha.Cub4<-c()
+Fecha.Cub5<-c()
+Macho<-c()
+Macho2<-c()
+Macho3<-c()
+Macho4<-c()
+Macho5<-c()
+Tipo.Cubr<-c()
+Tipo.Cubr2<-c()
+Tipo.Cubr3<-c()
+Tipo.Cubr4<-c()
+Tipo.Cubr5<-c()
+Fecha.Parto<-c()
+Tipo.Parto<-c()
+Viv<-c()
+Mue<-c()
+Momi<-c()
+Ado<-c()
+Ret<-c()
+FECHA.DESTETE<-c()
+NUM.LECHONES<-c()
+
+nrow(dd)
+for (i in 1:nrow(dd)) {
+  x <- gsub("[[]]", "", dd[i,])
+  xs <- unlist(strsplit(x, ""))  
+  if(xs[13]==0&xs[12]==0){
+    Granja<-c(Granja,str_c(xs[1:5],collapse = ""))
+    Animal<-c(Animal,str_c(xs[6:11],collapse = ""))
+    Ciclo<-c(Ciclo,str_c(xs[12:13],collapse = ""))
+    Sexo<-c(Sexo,xs[14])
+    Raza<-c(Raza,str_c(xs[15:16],collapse = ""))
+    Fecn<-c(Fecn,str_c(xs[17:22],collapse = ""))
+    Origen<-c(Origen,str_c(xs[23:27],collapse = ""))
+    Fece<-c(Fece,str_c(xs[28:33],collapse = ""))
+    Baja<-c(Baja,xs[34])
+    Fecb<-c(Fecb,str_c(xs[35:40],collapse = ""))
+    Razon<-c(Razon,str_c(xs[41:42],collapse = ""))
+    Rep<-c(Rep,as.numeric(""))
+    Fecha.Cub<-c(Fecha.Cub,"")
+    Fecha.Cub2<-c(Fecha.Cub2,"")
+    Fecha.Cub3<-c(Fecha.Cub3,"")
+    Fecha.Cub4<-c(Fecha.Cub4,"")
+    Fecha.Cub5<-c(Fecha.Cub5,"")
+    Macho<-c(Macho,"")
+    Macho2<-c(Macho2,"")
+    Macho3<-c(Macho3,"")
+    Macho4<-c(Macho4,"")
+    Macho5<-c(Macho5,"")
+    Tipo.Cubr<-c(Tipo.Cubr,"")
+    Tipo.Cubr2<-c(Tipo.Cubr2,"")
+    Tipo.Cubr3<-c(Tipo.Cubr3,"")
+    Tipo.Cubr4<-c(Tipo.Cubr4,"")
+    Tipo.Cubr5<-c(Tipo.Cubr5,"")
+    Fecha.Parto<-c(Fecha.Parto,"")
+    Tipo.Parto<-c(Tipo.Parto,"")
+    Viv<-c(Viv,as.numeric(""))
+    Mue<-c(Mue,as.numeric(""))
+    Momi<-c(Momi,as.numeric(""))
+    Ado<-c(Ado,as.numeric(""))
+    Ret<-c(Ret,as.numeric(""))
+    FECHA.DESTETE<-c(FECHA.DESTETE,"")
+    NUM.LECHONES<-c(NUM.LECHONES,as.numeric(""))
+    
+  }
+  else{
+    Granja<-c(Granja,str_c(xs[1:5],collapse = ""))
+    Animal<-c(Animal,str_c(xs[6:11],collapse = ""))
+    Ciclo<-c(Ciclo,str_c(xs[12:13],collapse = ""))
+    Sexo<-c(Sexo,tail(Sexo,1))
+    Raza<-c(Raza,tail(Raza,1))
+    Fecn<-c(Fecn,tail(Fecn,1)) # Fecn[length(Fecn)]
+    Origen<-c(Origen,tail(Origen,1))
+    Fece<-c(Fece,tail(Fece,1))
+    Baja<-c(Baja,tail(Baja,1))
+    Fecb<-c(Fecb,tail(Fecb,1))
+    Razon<-c(Razon,tail(Razon,1))
+    Rep<-c(Rep,as.numeric(str_c(xs[14],collapse = "")))
+    Fecha.Cub<-c(Fecha.Cub,str_c(xs[15:20],collapse = ""))
+    Fecha.Cub2<-c(Fecha.Cub2,str_c(xs[21:26],collapse = ""))
+    Fecha.Cub3<-c(Fecha.Cub3,str_c(xs[27:32],collapse = ""))
+    Fecha.Cub4<-c(Fecha.Cub4,str_c(xs[33:38],collapse = ""))
+    Fecha.Cub5<-c(Fecha.Cub5,str_c(xs[39:44],collapse = ""))
+    Macho<-c(Macho,str_c(xs[45:50],collapse = ""))
+    Macho2<-c(Macho2,str_c(xs[51:56],collapse = ""))
+    Macho3<-c(Macho3,str_c(xs[57:62],collapse = ""))
+    Macho4<-c(Macho4,str_c(xs[63:68],collapse = ""))
+    Macho5<-c(Macho5,str_c(xs[69:74],collapse = ""))
+    Tipo.Cubr<-c(Tipo.Cubr,xs[75])
+    Tipo.Cubr2<-c(Tipo.Cubr2,xs[76])
+    Tipo.Cubr3<-c(Tipo.Cubr3,xs[77])
+    Tipo.Cubr4<-c(Tipo.Cubr4,xs[78])
+    Tipo.Cubr5<-c(Tipo.Cubr5,xs[79])
+    Fecha.Parto<-c(Fecha.Parto,str_c(xs[80:85],collapse = ""))
+    Tipo.Parto<-c(Tipo.Parto,xs[86])
+    Viv<-c(Viv,as.numeric(str_c(xs[87:88],collapse = "")))
+    Mue<-c(Mue,as.numeric(str_c(xs[89:90],collapse = "")))
+    Momi<-c(Momi,as.numeric(xs[91]))
+    Ado<-c(Ado,as.numeric(str_c(xs[92:93],collapse = "")))
+    Ret<-c(Ret,as.numeric(str_c(xs[94:95],collapse = "")))
+    FECHA.DESTETE<-c(FECHA.DESTETE,str_c(xs[96:101],collapse = ""))
+    NUM.LECHONES<-c(NUM.LECHONES,as.numeric(str_c(xs[102:103],collapse = "")))
+    
+  }
+}
+df<-data.frame(Granja,Animal,Ciclo,Sexo,Raza,Fecn,
+Origen,Fece,Baja,Fecb,Razon,Rep,Fecha.Cub,Fecha.Cub2,Fecha.Cub3,Fecha.Cub4,Fecha.Cub5,Macho,Macho2,Macho3, Macho4,Macho5, Tipo.Cubr,
+Tipo.Cubr2,Tipo.Cubr3,Tipo.Cubr4,Tipo.Cubr5,Fecha.Parto,Tipo.Parto,Viv,Mue,Momi,Ado,Ret,FECHA.DESTETE,NUM.LECHONES)
+head(df)
+nrow(df)
+nrow(dd)
+```
+
+
+Actualització del format de les dates
+
+```{r}
+##Fecn ###
+AFecn<-substr(Fecn, start = 1, stop = 4)
+BFecn<-substr(Fecn, start = 5, stop = 6)
+BFecn<-str_remove_all(BFecn, " ")
+AFecn<-str_remove_all(AFecn, " ")
+
+
+for (i in 1:length(BFecn)) {
+  if(BFecn[i]!=("")){
+    if(as.numeric(BFecn[i])>50){
+      BFecn[i]<-as.numeric(BFecn[i])+1900
+    }
+    else{
+      BFecn[i]<-as.numeric(BFecn[i])+2000
+    }
+  }
+}
+ABFecn<-str_c(AFecn, BFecn)
+df$Fecn<-dmy(ABFecn)
+table(is.na(df$Fecn))
+table(AFecn)
+
+##Fece 
+AFece<-substr(Fece, start = 1, stop = 4)
+BFece<-substr(Fece, start = 5, stop = 6)
+BFece<-str_remove_all(BFece, " ")
+AFece<-str_remove_all(AFece, " ")
+
+for (i in 1:length(BFece)) {
+  if(BFece[i]!=""){
+    if(as.numeric(BFece[i])>50){
+      BFece[i]<-as.numeric(BFece[i])+1900
+    }
+    else{
+      BFece[i]<-as.numeric(BFece[i])+2000
+    }
+  }
+}
+ABFece<-str_c(AFece, BFece)
+
+df$Fece<-dmy(ABFece)
+table(is.na(df$Fece))
+table(AFece)
+
+##Fecb
+AFecb<-substr(Fecb, start = 1, stop = 4)
+BFecb<-substr(Fecb, start = 5, stop = 6)
+AFecb<-str_remove_all(AFecb, " ")
+BFecb<-str_remove_all(BFecb, " ")
+
+for (i in 1:length(BFecb)) {
+  if(BFecb[i]!=""){
+  if(as.numeric(BFecb[i])>50){
+    BFecb[i]<-as.numeric(BFecb[i])+1900
+  }
+    else{
+      BFecb[i]<-as.numeric(BFecb[i])+2000
+    }
+}
+}
+ABFecb<-str_c(AFecb, BFecb)
+
+df$Fecb<-dmy(ABFecb)
+table(is.na(df$Fecb))
+table(AFecb)
+
+##Fecha.Cub
+AFecha.Cub<-substr(Fecha.Cub, start = 1, stop = 4)
+BFecha.Cub<-substr(Fecha.Cub, start = 5, stop = 6)
+BFecb<-str_remove_all(BFecb, " ")
+AFecb<-str_remove_all(AFecb, " ")
+
+for (i in 1:length(BFecha.Cub)) {
+  if(BFecha.Cub[i]!=""){
+    if(as.numeric(BFecha.Cub[i])>50){
+      BFecha.Cub[i]<-as.numeric(BFecha.Cub[i])+1900
+    }
+    else{
+      BFecha.Cub[i]<-as.numeric(BFecha.Cub[i])+2000
+    }
+  }
+}
+ABFecha.Cub<-str_c(AFecha.Cub, BFecha.Cub)
+
+df$Fecha.Cub<-dmy(ABFecha.Cub)
+table(is.na(df$Fecha.Cub))
+table(AFecha.Cub)
+
+##Fecha.Cub2
+AFecha.Cub2<-substr(Fecha.Cub2, start = 1, stop = 4)
+BFecha.Cub2<-substr(Fecha.Cub2, start = 5, stop = 6)
+BFecha.Cub2<-str_remove_all(BFecha.Cub2, "  ")
+AFecha.Cub2<-str_remove_all(AFecha.Cub2, "  ")
+
+for (i in 1:length(BFecha.Cub2)) {
+  if(BFecha.Cub2[i]!=""){
+    if(as.numeric(BFecha.Cub2[i])>50){
+      BFecha.Cub2[i]<-as.numeric(BFecha.Cub2[i])+1900
+    }
+    else{
+      BFecha.Cub2[i]<-as.numeric(BFecha.Cub2[i])+2000
+    }
+  }
+}
+ABFecha.Cub2<-str_c(AFecha.Cub2, BFecha.Cub2)
+
+df$Fecha.Cub2<-dmy(ABFecha.Cub2)
+table(is.na(df$Fecha.Cub2))
+table(AFecha.Cub2)
+
+##Fecha.Cub3
+AFecha.Cub3<-substr(Fecha.Cub3, start = 1, stop = 4)
+BFecha.Cub3<-substr(Fecha.Cub3, start = 5, stop = 6)
+BFecha.Cub3<-str_remove_all(BFecha.Cub3, "  ")
+AFecha.Cub3<-str_remove_all(AFecha.Cub3, "  ")
+
+for (i in 1:length(BFecha.Cub3)) {
+  if(BFecha.Cub3[i]!=""){
+    if(as.numeric(BFecha.Cub3[i])>50){
+      BFecha.Cub3[i]<-as.numeric(BFecha.Cub3[i])+1900
+    }
+    else{
+      BFecha.Cub3[i]<-as.numeric(BFecha.Cub3[i])+2000
+    }
+  }
+}
+ABFecha.Cub3<-str_c(AFecha.Cub3, BFecha.Cub3)
+
+df$Fecha.Cub3<-dmy(ABFecha.Cub3)
+table(is.na(df$Fecha.Cub3))
+table(AFecha.Cub3)
+
+##Fecha.Cub4
+AFecha.Cub4<-substr(Fecha.Cub4, start = 1, stop = 4)
+BFecha.Cub4<-substr(Fecha.Cub4, start = 5, stop = 6)
+BFecha.Cub4<-str_remove_all(BFecha.Cub4, "  ")
+AFecha.Cub4<-str_remove_all(AFecha.Cub4, "  ")
+
+for (i in 1:length(BFecha.Cub4)) {
+  if(BFecha.Cub4[i]!=""){
+    if(as.numeric(BFecha.Cub4[i])>50){
+      BFecha.Cub4[i]<-as.numeric(BFecha.Cub4[i])+1900
+    }
+    else{
+      BFecha.Cub4[i]<-as.numeric(BFecha.Cub4[i])+2000
+    }
+  }
+}
+ABFecha.Cub4<-str_c(AFecha.Cub4, BFecha.Cub4)
+
+df$Fecha.Cub4<-dmy(ABFecha.Cub4)
+table(is.na(df$Fecha.Cub4))
+table(AFecha.Cub4)
+
+##Fecha.Cub5
+AFecha.Cub5<-substr(Fecha.Cub5, start = 1, stop = 4)
+BFecha.Cub5<-substr(Fecha.Cub5, start = 5, stop = 6)
+AFecha.Cub5<-str_remove_all(BFecha.Cub5, "  ")
+BFecha.Cub5<-str_remove_all(BFecha.Cub5, "  ")
+
+for (i in 1:length(BFecha.Cub5)) {
+  if(BFecha.Cub5[i]!=""){
+    if(as.numeric(BFecha.Cub5[i])>50){
+      BFecha.Cub5[i]<-as.numeric(BFecha.Cub5[i])+1900
+    }
+    else{
+      BFecha.Cub5[i]<-as.numeric(BFecha.Cub5[i])+2000
+    }
+  }
+}
+ABFecha.Cub5<-str_c(AFecha.Cub5, BFecha.Cub5)
+
+df$Fecha.Cub5<-dmy(ABFecha.Cub5)
+
+table(is.na(df$Fecha.Cub5))
+table(AFecha.Cub5)
+
+##Fecha.Parto
+AFecha.Parto<-substr(Fecha.Parto, start = 1, stop = 4)
+BFecha.Parto<-substr(Fecha.Parto, start = 5, stop = 6)
+AFecha.Parto<-str_remove_all(AFecha.Parto, "  ")
+BFecha.Parto<-str_remove_all(BFecha.Parto, "  ")
+
+for (i in 1:length(BFecha.Parto)) {
+  if(BFecha.Parto[i]!=""){
+    if(as.numeric(BFecha.Parto[i])>50){
+      BFecha.Parto[i]<-as.numeric(BFecha.Parto[i])+1900
+    }
+    else{
+      BFecha.Parto[i]<-as.numeric(BFecha.Parto[i])+2000
+    }
+  }
+}
+ABFecha.Parto<-str_c(AFecha.Parto, BFecha.Parto)
+
+df$Fecha.Parto<-dmy(ABFecha.Parto)
+table(is.na(df$Fecha.Parto))
+table(AFecha.Parto)
+
+##FECHA.DESTETE
+AFECHA.DESTETE<-substr(FECHA.DESTETE, start = 1, stop = 4)
+BFECHA.DESTETE<-substr(FECHA.DESTETE, start = 5, stop = 6)
+AFECHA.DESTETE<-str_remove_all(AFECHA.DESTETE, "  ")
+BFECHA.DESTETE<-str_remove_all(BFECHA.DESTETE, "  ")
+
+for (i in 1:length(BFECHA.DESTETE)) {
+  if(BFECHA.DESTETE[i]!=""){
+    if(as.numeric(BFECHA.DESTETE[i])>50){
+      BFECHA.DESTETE[i]<-as.numeric(BFECHA.DESTETE[i])+1900
+    }
+    else{
+      BFECHA.DESTETE[i]<-as.numeric(BFECHA.DESTETE[i])+2000
+    }
+  }
+}
+ABFECHA.DESTETE<-str_c(AFECHA.DESTETE, BFECHA.DESTETE)
+
+df$FECHA.DESTETE<-dmy(ABFECHA.DESTETE)
+table(is.na(df$FECHA.DESTETE))
+table(AFECHA.DESTETE)
+
+```
+
+
+1. Número de explotaciones
+```{r}
+summary(df$Granja)
+```
+
+2. Nº medio de cerdas presentes:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+
+cerdas2<-subset(df,df$Fecb>Fi&df$Fece<Fi&df$Sexo==1&df$Ciclo=="00") #Sows in the farm on the start date
+NSI<-nrow(cerdas2)
+NSI
+cerdas2.1<-subset(df,df$Fecb>Fi&df$Fece<Ff&df$Sexo==1&df$Ciclo=="00") #Sows in the farm between the period
+nrow(cerdas2.1)
+Fa<-cerdas2.1[cerdas2.1$Fece>Fi,]
+alt<-Ff-Fa$Fece
+length(alt)
+altas<-sum(alt+1)
+
+Fb<-cerdas2.1[cerdas2.1$Fecb<Ff,]
+baj<-Ff-Fb$Fecb
+length(baj)
+bajas<-sum(baj+1)
+
+medio.cerdas.presentes<-NSI+(as.numeric(altas-bajas)/as.numeric(Ff-Fi+1))
+medio.cerdas.presentes
+
+```
+
+3. Nº medio de cerdas presentes 200 días: 
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+
+cerdas3<-subset(df,df$Fecb>Fi & df$Fece<Fi & df$Sexo==1 & df$Ciclo=="00"& Fi-df$Fecn>200)
+NSI3<-nrow(cerdas3)
+NSI3
+cerdas3.1<-subset(df,df$Fecb>Fi&df$Fece<Ff & df$Sexo==1 & df$Ciclo=="00" & Ff-df$Fecn>200 )
+nrow(cerdas3.1)
+
+Fa<-cerdas3.1[cerdas3.1$Fece>Fi,]
+alt<-Ff-Fa$Fece
+length(alt)
+altas<-sum(alt+1)
+
+Fb<-cerdas3.1[cerdas3.1$Fecb<Ff,]
+baj<-Ff-Fb$Fecb
+length(baj)
+bajas<-sum(baj+1)
+
+medio.cerdas.presentes200<-NSI3+(as.numeric(altas-bajas)/as.numeric(Ff-Fi+1))
+medio.cerdas.presentes200
+
+```
+
+
+4. Nº medio de cerdas presentes a la 1ª cubrición:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas4<-subset(df,df$Fecb>Fi & df$Fece<Fi & df$Sexo==1 & df$Ciclo=="01")
+nrow(cerdas4)
+for (i in 1:nrow(cerdas4)) {
+  if(cerdas4$Fece[i]>cerdas4$Fecha.Cub[i]){
+    cerdas4$Fecha.Cub[i]<-cerdas4$Fece[i]
+  }
+}
+cerdas4<-subset(cerdas4,cerdas4$Fecha.Cub<Fi)
+NSI4<-nrow(cerdas4)
+NSI4
+
+cerdas4.1<-subset(df,df$Fecb>Fi & df$Fece<Ff & df$Sexo==1 & df$Ciclo=="01"& df$Fecha.Cub<Ff)
+nrow(cerdas4.1)
+Fa<-cerdas4.1[cerdas4.1$Fece>Fi,]
+alt<-Ff-Fa$Fece
+length(alt)
+altas<-sum(alt)+1
+
+Fb<-cerdas4.1[cerdas4.1$Fecb<Ff,]
+baj<-Ff-Fb$Fecb
+length(baj)
+bajas<-sum(baj)+1
+
+medio.cerdas.presentes1aCub<-NSI4+(as.numeric(altas-bajas)/as.numeric(Ff-Fi+1))
+medio.cerdas.presentes1aCub
+
+```
+
+
+5. Nº de cerdas en producción:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas5<-subset(df,df$FECHA.DESTETE>Fi&df$FECHA.DESTETE<Ff)
+length( unique(cerdas5$Animal))
+```
+
+
+9. Nº Total de Cerdas a final de Período – Estructura a final de período:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas9<-subset(df,df$Fece<Ff&df$Fecb>Ff&df$Ciclo=="00" & df$Sexo==1)
+nrow(cerdas9)
+```
+
+
+10. Nº Altas Cerdas:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas10<-subset(df,df$Fece>Fi&df$Fece<Ff&df$Ciclo=="00"& df$Sexo==1)
+naltas<-nrow(cerdas10)
+naltas
+```
+
+
+11. % Altas:
+```{r}
+porc.altas<-naltas/medio.cerdas.presentes
+porc.altas*100
+```
+
+12. Nº de Bajas Cerdas período
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas11<-subset(df,df$Fecb>Fi&df$Fecb<Ff&df$Ciclo=="00"& df$Sexo==1)
+nbajas<-nrow(cerdas11)
+nbajas
+```
+
+13. % Bajas:
+```{r}
+porc.bajas<-nbajas/medio.cerdas.presentes
+porc.bajas*100
+```
+
+14. Edad cerda a la baja en meses /años:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas14<-subset(df,df$Fecb>Fi&df$Fecb<Ff & df$Sexo==1 & df$Ciclo=="00")
+edadbaja<-cerdas14$Fecb-cerdas14$Fecn
+mean(as.numeric(edadbaja))/30
+mean(as.numeric(edadbaja))/360
+```
+
+15. Intervalo Alta-1ª cubrición (días):
+
+```{r}
+Normal<-c()
+Aborto<-c()
+Baja<-c()
+
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas15<-subset(df,df$Ciclo=="01")
+for (i in 1:nrow(cerdas15)) {
+  
+    if(cerdas15$Tipo.Parto[i]=="0" & cerdas15$FECHA.DESTETE[i]>Fi & cerdas15$FECHA.DESTETE[i]<Ff ){
+  
+            Normal<-c(Normal, cerdas15$Fecha.Cub[i] -cerdas15$Fece[i])
+  
+    }    
+  
+    else if(cerdas15$Tipo.Parto[i]=="1" & cerdas15$Fecha.Parto[i]>Fi & cerdas15$Fecha.Parto[i]<Ff){
+    
+    Aborto<-c(Aborto, cerdas15$Fecha.Cub[i] -cerdas15$Fece[i])
+    
+    } 
+    else if(cerdas15$Fecb[i]>Fi & cerdas15$Fecb[i]<Ff & cerdas15$Baja[i]==1 & is.na(cerdas15$Fecha.Parto[i])){
+  
+          
+         Baja<-c(Baja, cerdas15$Fecha.Cub[i] -cerdas15$Fece[i])
+          
+  }}
+
+Intervalo<-c(Normal, Aborto, Baja)
+mean((Intervalo))
+
+```
+
+16. Edad cerda al primer parto (en días):
+
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas16<-subset(df,df$FECHA.DESTETE >Fi & df$FECHA.DESTETE<Ff & df$Ciclo=="01")
+edad16<-cerdas16$Fecha.Parto-cerdas16$Fecn
+as.numeric(mean(edad16))
+```
+
+17. Edad cerda al parto (en meses):
+
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas17<-subset(df,df$FECHA.DESTETE >Fi&df$FECHA.DESTETE<Ff)
+edad17<-cerdas17$Fecha.Parto-cerdas17$Fecn
+as.numeric(mean(edad17)/31)
+```
+
+18. N. Cubriciones totales:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+Normal<-c()
+Aborto<-c()
+Baja<-c()
+
+cerdas18<-subset(df, df$Sexo==1 & df$Ciclo!="00" & df$Fece<Ff & df$Fecb>Fi)
+for (i in 1:nrow(cerdas18)) {
+  
+if(cerdas18$Tipo.Parto[i]=="0" & cerdas18$FECHA.DESTETE[i]>Fi & cerdas18$FECHA.DESTETE[i]<Ff ){
+  
+  Normal<-c(Normal,cerdas18$Rep[i] )
+  
+  
+} else if(cerdas18$Tipo.Parto[i]=="1" & cerdas18$Fecha.Parto[i]>Fi & cerdas18$Fecha.Parto[i]<Ff){
+    Aborto<-c(Aborto, cerdas18$Rep[i])
+  
+  
+  } else if(cerdas18$Fecb[i]>Fi & cerdas18$Fecb[i]<Ff & cerdas18$Baja[i]==1 & is.na(cerdas18$Fecha.Parto[i])){
+  
+          
+          Baja<-c(Baja,cerdas18$Rep[i])
+          
+  }
+}
+
+CT<-sum(Normal,Aborto,Baja)
+CT
+
+```
+
+19. % Fertilidad:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+Normal<-c()
+Aborto<-c()
+Baja<-c()
+
+cerdas19<-subset(df,df$Sexo==1&df$Ciclo!="00"& df$Fece<Ff & df$Fecb>Fi)
+for (i in 1:nrow(cerdas19)) {
+  
+if(cerdas19$Tipo.Parto[i]=="0" & cerdas19$FECHA.DESTETE[i]>Fi & cerdas19$FECHA.DESTETE[i]<Ff ){
+  
+  Normal<-c(Normal,cerdas19$Rep[i] )
+  
+  
+} else if(cerdas19$Tipo.Parto[i]=="1" & cerdas19$Fecha.Parto[i]>Fi & cerdas19$Fecha.Parto[i]<Ff){
+    Aborto<-c(Aborto, cerdas19$Rep[i])
+  
+  
+  } else if(cerdas19$Fecb[i]>Fi & cerdas19$Fecb[i]<Ff & cerdas19$Baja[i]==1 & is.na(cerdas19$Fecha.Parto[i])){
+  
+          
+          Baja<-c(Baja,cerdas19$Rep[i])
+          
+  }
+}
+
+P<-length(Normal)
+Ab<-length(Aborto)
+Bf<-length(Baja)
+Cp<-sum(Normal)
+Ca<-sum(Aborto)
+Cb<-sum(Baja)
+CT<-Cp+Ca+Cb
+
+Perc.Fertilidad = 100 *((P + Ab) / CT)
+Perc.Fertilidad
+```
+
+20. % Repeticiones (infertilidad):
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+Normal<-c()
+Aborto<-c()
+Baja<-c()
+
+cerdas19<-subset(df,df$Sexo==1&df$Ciclo!="00"& df$Fece<Ff & df$Fecb>Fi)
+for (i in 1:nrow(cerdas19)) {
+  
+if(cerdas19$Tipo.Parto[i]=="0" & cerdas19$FECHA.DESTETE[i]>Fi & cerdas19$FECHA.DESTETE[i]<Ff ){
+  
+  Normal<-c(Normal,cerdas19$Rep[i] )
+  
+  
+} else if(cerdas19$Tipo.Parto[i]=="1" & cerdas19$Fecha.Parto[i]>Fi & cerdas19$Fecha.Parto[i]<Ff){
+    Aborto<-c(Aborto, cerdas19$Rep[i])
+  
+  
+  } else if(cerdas19$Fecb[i]>Fi & cerdas19$Fecb[i]<Ff & cerdas19$Baja[i]==1 & is.na(cerdas19$Fecha.Parto[i])){
+  
+          
+          Baja<-c(Baja,cerdas19$Rep[i])
+          
+  }
+}
+
+P<-length(Normal)
+Ab<-length(Aborto)
+Bf<-length(Baja)
+Cp<-sum(Normal)
+Ca<-sum(Aborto)
+Cb<-sum(Baja)
+CT<-Cp+Ca+Cb
+
+Perc.Inertilidad = 100 *(1-((P + Ab ) / CT))
+Perc.Inertilidad
+100-Perc.Fertilidad
+```
+
+21. Índice de Partos
+```{r}
+I.P<-100 * (P/CT)
+I.P
+```
+
+
+22. Índice de Abortos
+```{r}
+I.A<- 100 * (Ab/CT)
+I.A
+```
+
+
+23. Índice de Repeticiones
+```{r}
+RepN<-Normal-1
+RepA<-Aborto-1
+R<-sum(RepN,RepA)
+I.R<-100 * (R/CT)
+I.R
+
+```
+
+
+24. Índice de Bajas
+```{r}
+I.B = 100 *(Cb/CT)
+I.B
+```
+
+25. Nº partos /cerda presente /año:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas25<-subset(df,df$Tipo.Parto=="0" & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+N.Partos.Dest<-nrow(cerdas25)
+N.partos.Cerda.año<-(N.Partos.Dest/medio.cerdas.presentes)*(360/(as.numeric(Ff-Fi)+1))
+N.partos.Cerda.año
+```
+
+26. Nº partos /cerda 1º cubrición /año:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas26<-subset(df,df$Tipo.Parto=="0" & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+N.Partos.Dest<-nrow(cerdas26)
+N.partos.Cerda1C.año<-(N.Partos.Dest/medio.cerdas.presentes1aCub)*(360/(as.numeric(Ff-Fi)+1))
+N.partos.Cerda1C.año
+```
+
+
+27. Nº partos /cerda en producción /año:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+
+cerdas27<-subset(df,df$Sexo==1&df$Ciclo!="00")
+partos<-c()
+for (i in 1:nrow(cerdas27)) {
+  
+if(cerdas27$Tipo.Parto[i]=="0" & cerdas27$FECHA.DESTETE[i]>Fi & cerdas27$FECHA.DESTETE[i]<Ff & cerdas27$Ciclo[i]!="01" ){
+  
+  if(cerdas27$Animal[i]==cerdas27$Animal[i-1] & cerdas27$Tipo.Parto[i-1]==0){
+    
+    partos<-c(partos,(cerdas27$Fecha.Parto[i]-cerdas27$Fecha.Parto[i-1]))
+  }}}
+npartos.cerdaprod.año<-360/mean(partos)
+npartos.cerdaprod.año
+```
+
+
+28. Partos /cerda de baja:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas28<-subset(df, df$Fecb>Fi & df$Fecb<Ff)
+cerdasbaja<-unique(as.character(cerdas28$Animal))
+partos<-df[df$Animal%in%cerdasbaja,]
+
+partos<-length(partos$FECHA.DESTETE)-sum(is.na(partos$FECHA.DESTETE))
+cerdastot<-length(cerdasbaja)
+partos/cerdastot
+```
+
+
+29. Nº abortos:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas29<-subset(df,df$Tipo.Parto=="1" & df$Fecha.Parto>Fi & df$Fecha.Parto<Ff)
+abortosp<-nrow(cerdas29)
+abortosp
+```
+
+
+30. % Abortos:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas30a<-subset(df,df$Tipo.Parto=="1" & df$Fecha.Parto>Fi & df$Fecha.Parto<Ff)
+abortosp<-nrow(cerdas30a)
+cerdas30d<-subset(df,df$Tipo.Parto=="0" & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+N.Partos.Dest<-nrow(cerdas30d)
+
+Porc.Abortos<-(abortosp/(abortosp+N.Partos.Dest))*100
+Porc.Abortos
+```
+
+31. Nº Camadas destetadas:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas31<-subset(df,df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+
+Destetadas<-nrow(cerdas31)
+Destetadas
+
+
+```
+
+32. Nº Destetes normales:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas32<-subset(df,df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff & df$FECHA.DESTETE-df$Fecha.Parto>6)
+Destetadas.norm<-nrow(cerdas32)
+Destetadas.norm
+```
+
+33. Nº Destetes forzosos:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas33<-subset(df,df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff & df$FECHA.DESTETE-df$Fecha.Parto<7 &df$NUM.LECHONES==0)
+Destetadas.forz<-nrow(cerdas33)
+Destetadas.forz
+```
+
+34. Número de lactaciones:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas34<-subset(df,df$Fecha.Parto>Fi & df$Fecha.Parto<Ff & df$FECHA.DESTETE>Ff) #only for historical register not posible in the present
+nrow(cerdas34)
+```
+
+35. Intervalo destete-celo:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+dias.Normal<-c()
+dias.Aborto<-c()
+dias.Baja<-c()
+
+cerdas35<-subset(df,df$Sexo==1 & df$Ciclo!="00")
+
+for (i in 1:nrow(cerdas35)) {
+  
+    if(cerdas35$Tipo.Parto[i]=="0" & cerdas35$FECHA.DESTETE[i]>Fi & cerdas35$FECHA.DESTETE[i]<Ff & cerdas35$Ciclo[i]!="01" ){
+  
+        if(cerdas35$Animal[i]==cerdas35$Animal[i-1] & cerdas35$Tipo.Parto[i-1]==0){
+    
+            dias.Normal<-c(dias.Normal,(cerdas35$Fecha.Cub[i]-cerdas35$FECHA.DESTETE[i-1]))
+        }
+  
+  
+    } 
+    else if(cerdas35$Tipo.Parto[i]=="1" & cerdas35$Fecha.Parto[i]>Fi & cerdas35$Fecha.Parto[i]<Ff & cerdas35$Ciclo[i]!="01"){
+  
+          if(cerdas35$Animal[i]==cerdas35$Animal[i-1]& cerdas35$Tipo.Parto[i-1]==0){
+      
+            dias.Aborto<-c(dias.Aborto,cerdas35$Fecha.Cub[i]-cerdas35$FECHA.DESTETE[i-1])
+           }
+  
+  
+    } 
+    else if(cerdas35$Fecb[i]>Fi & cerdas35$Fecb[i]<Ff & cerdas35$Baja[i]==1 & is.na(cerdas35$Fecha.Parto[i] )){
+  
+          if(cerdas35$Animal[i]==cerdas35$Animal[i-1]& cerdas35$Ciclo[i]!="01"& cerdas35$Tipo.Parto[i-1]==0){
+      
+            dias.Baja<-c(dias.Baja,cerdas35$Fecha.Cub[i]-cerdas35$FECHA.DESTETE[i-1])
+            }
+          
+    }
+}
+mean(c(dias.Normal[dias.Normal<21],dias.Aborto[dias.Aborto<21],dias.Baja[dias.Baja<21]))
+```
+
+36. Intervalo destete - 1ªcubrición:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+dias.Normal<-c()
+dias.Aborto<-c()
+dias.Baja<-c()
+
+cerdas36<-subset(df,df$Sexo==1&df$Ciclo!="00")
+
+for (i in 1:nrow(cerdas36)) {
+  
+if(cerdas36$Tipo.Parto[i]=="0" & cerdas36$FECHA.DESTETE[i]>Fi & cerdas36$FECHA.DESTETE[i]<Ff & cerdas36$Ciclo[i]!="01" ){
+  
+  if(cerdas36$Animal[i]==cerdas36$Animal[i-1] & cerdas36$Tipo.Parto[i-1]==0){
+    
+    dias.Normal<-c(dias.Normal,(cerdas36$Fecha.Cub[i]-cerdas36$FECHA.DESTETE[i-1]))
+  }
+  
+  
+} else if(cerdas36$Tipo.Parto[i]=="1" & cerdas36$Fecha.Parto[i]>Fi & cerdas36$Fecha.Parto[i]<Ff & cerdas36$Ciclo[i]!="01"){
+  
+    if(cerdas36$Animal[i]==cerdas36$Animal[i-1]& cerdas36$Tipo.Parto[i-1]==0){
+      
+    dias.Aborto<-c(dias.Aborto,cerdas36$Fecha.Cub[i]-cerdas36$FECHA.DESTETE[i-1])
+  }
+  
+  
+  } else if(cerdas36$Fecb[i]>Fi & cerdas36$Fecb[i]<Ff & cerdas36$Baja[i]==1 & is.na(cerdas36$Fecha.Parto[i] )){
+  
+        if(cerdas36$Animal[i]==cerdas36$Animal[i-1]& cerdas36$Ciclo[i]!="01"& cerdas36$Tipo.Parto[i-1]==0){
+      
+    dias.Baja<-c(dias.Baja,cerdas36$Fecha.Cub[i]-cerdas36$FECHA.DESTETE[i-1])
+  }
+          
+  }
+}
+mean(c(dias.Normal,dias.Aborto,dias.Baja))
+```
+
+37. Intervalo 1ª Cubrición – Cubrición Fértil:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+dias.Normal<-c()
+dias.Aborto<-c()
+
+cerdas37<-subset(df,df$Sexo==1&df$Ciclo!="00")
+
+for (i in 1:nrow(cerdas37)) {
+  
+if(cerdas37$Tipo.Parto[i]=="0" & cerdas37$FECHA.DESTETE[i]>Fi & cerdas37$FECHA.DESTETE[i]<Ff){
+  pos<-tail(which(!is.na(cerdas37[i,13:17])),1) #ultima posicion sin Na
+  
+    
+    dias.Normal<-c(dias.Normal,as.numeric(cerdas37[i,13:17][pos]-cerdas37[i,13:17][1]))
+  }
+  
+  
+ else if(cerdas37$Tipo.Parto[i]=="1" & cerdas37$Fecha.Parto[i]>Fi & cerdas37$Fecha.Parto[i]<Ff ){
+  
+    pos<-tail(which(!is.na(cerdas37[i,13:17])),1) #ultima posicion sin Na
+      
+    dias.Aborto<-c(dias.Aborto,as.numeric(cerdas37[i,13:17][pos]-cerdas37[i,13:17][1]))
+  }
+  
+  
+} 
+dias<-c(dias.Aborto,dias.Normal)
+
+mean(dias)
+
+```
+
+38. Intervalo destete-Cubrición Fértil:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+dias.Normal<-c()
+dias.Aborto<-c()
+
+cerdas38<-subset(df,df$Sexo==1&df$Ciclo!="00")
+
+for (i in 1:nrow(cerdas38)) {
+  
+if(cerdas38$Tipo.Parto[i]=="0" & cerdas38$FECHA.DESTETE[i]>Fi & cerdas38$FECHA.DESTETE[i]<Ff & cerdas38$Ciclo[i]!="01" ){
+  
+  if(cerdas38$Animal[i]==cerdas38$Animal[i-1] & cerdas38$Tipo.Parto[i-1]==0){
+     pos<-tail(which(!is.na(cerdas38[i,13:17])),1)
+    
+    dias.Normal<-c(dias.Normal,as.numeric(cerdas38[i,13:17][pos])-as.numeric(cerdas38[i-1,35]))
+  }
+  
+  
+} else if(cerdas38$Tipo.Parto[i]=="1" & cerdas38$Fecha.Parto[i]>Fi & cerdas38$Fecha.Parto[i]<Ff & cerdas38$Ciclo[i]!="01"){
+  
+    if(cerdas38$Animal[i]==cerdas38$Animal[i-1]& cerdas38$Tipo.Parto[i-1]==0){
+      pos<-tail(which(!is.na(cerdas38[i,13:17])),1)
+      
+    dias.Aborto<-c(dias.Aborto,as.numeric(cerdas38[i,13:17][pos])-as.numeric(cerdas38$FECHA.DESTETE[i-1]))
+  }
+  
+  
+  } 
+}
+cerdas38a<-subset(df,df$Tipo.Parto=="1" & df$Fecha.Parto>Fi & df$Fecha.Parto<Ff)
+N.abortos<-nrow(cerdas38a)
+cerdas38d<-subset(df,df$Tipo.Parto=="0" & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+N.partos<-nrow(cerdas38d)
+
+intervalo.dest.cub<-(sum(dias.Aborto)+sum(dias.Normal))/(N.abortos+N.partos)
+intervalo.dest.cub
+```
+
+39. Días medios de gestación:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+gestacion<-c()
+cerdas39<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff & df$Tipo.Parto=="0")
+
+for (i in 1:nrow(cerdas39)) {
+  
+     pos<-tail(which(!is.na(cerdas39[i,13:17])),1)
+    
+    gestacion<-c(gestacion,as.numeric(cerdas39$Fecha.Parto[i]-as.numeric(cerdas39[i,13:17][pos])))
+}
+mean(gestacion)
+```
+
+40. Intervalo aborto-1ª Cubrición:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas40<-subset(df,df$Sexo==1 & df$Ciclo!="00")
+Aborto.Normal<-c()
+Aborto.Aborto<-c()
+Aborto.Baja<-c()
+
+
+for (i in 2:nrow(cerdas40)) {
+  
+    if(cerdas40$Tipo.Parto[i]=="0" & cerdas40$FECHA.DESTETE[i]>Fi & cerdas40$FECHA.DESTETE[i]<Ff & cerdas40$Ciclo[i]!="01"){
+      if(cerdas40$Animal[i]==cerdas40$Animal[i-1] & cerdas40$Tipo.Parto[i-1]==1)
+  
+            Aborto.Normal<-c(Aborto.Normal, cerdas40$Fecha.Cub[i] -cerdas40$Fecha.Parto[i-1])
+  
+    }    
+  
+    else if(cerdas40$Tipo.Parto[i]=="1" & cerdas40$Fecha.Parto[i]>Fi & cerdas40$Fecha.Parto[i]<Ff & cerdas40$Ciclo[i]!="01"){
+    
+    if(cerdas40$Animal[i]==cerdas40$Animal[i-1] & cerdas40$Tipo.Parto[i-1]==1)
+  
+            Aborto.Aborto<-c(Aborto.Aborto, cerdas40$Fecha.Cub[i] -cerdas40$Fecha.Parto[i-1])
+    
+    } 
+    else if(cerdas40$Fecb[i]>Fi & cerdas40$Fecb[i]<Ff & cerdas40$Baja[i]==1 & is.na(cerdas40$Fecha.Parto[i]) & cerdas40$Ciclo[i]!="01"){
+  
+          
+         if(cerdas40$Animal[i]==cerdas40$Animal[i-1] & cerdas40$Tipo.Parto[i-1]==1)
+  
+            Aborto.Baja<-c(Aborto.Baja, cerdas40$Fecha.Cub[i] -cerdas40$Fecha.Parto[i-1])
+          
+    }}
+Aborto.Normal
+Aborto.Aborto
+Aborto.Baja
+mean(c(Aborto.Normal,Aborto.Aborto,Aborto.Baja))
+```
+
+41. Intervalo última Cubrición-Aborto:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+Cub.aborto<-c()
+cerdas41<-subset(df,df$Sexo==1 & df$Fecha.Parto>Fi & df$Fecha.Parto<Ff & df$Tipo.Parto=="1")
+
+for (i in 1:nrow(cerdas41)) {
+  
+     pos<-tail(which(!is.na(cerdas41[i,13:17])),1)
+    
+    Cub.aborto<-c(Cub.aborto,as.numeric(cerdas41$Fecha.Parto[i]-as.numeric(cerdas41[i,13:17][pos])))
+}
+mean(Cub.aborto)
+
+```
+
+42. Período de Lactación:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas42<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+mean(cerdas42$FECHA.DESTETE-cerdas42$Fecha.Parto)
+```
+43. Edad al destete:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas43<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+edad.dest<-(cerdas43$FECHA.DESTETE-cerdas43$Fecha.Parto)
+edad.dest.noF<-edad.dest[edad.dest>6]
+mean(edad.dest.noF)
+```
+
+44. Intervalo entre partos:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+IP<-c()
+cerdas44<-subset(df,df$Sexo==1 & df$Ciclo!="00" & Tipo.Parto==0) #Filtrado por los partos normales
+for (i in 2:nrow(cerdas44)) {
+  if(cerdas44$Ciclo[i]!="01" & cerdas44$FECHA.DESTETE[i]>Fi & cerdas44$FECHA.DESTETE[i]<Ff & cerdas40$Animal[i]==cerdas40$Animal[i-1]  ){
+    
+    IP<-c(IP,cerdas44$Fecha.Parto[i]-cerdas44$Fecha.Parto[i-1])
+  }
+  
+}
+IP<-mean(IP)
+IP
+```
+
+45. Nacidos vivos /camada:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas43<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+mean(cerdas43$Viv)
+```
+46. Nacidos muertos /camada:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas43<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+mean(cerdas43$Mue)
+```
+
+47. Nacidos totales /camada:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas43<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+Nacidos.tot<-cerdas43$Mue+cerdas43$Viv
+Nacidos.tot<-Nacidos.tot[Nacidos.tot>0]
+mean(Nacidos.tot)
+```
+
+
+52. Nº total de Bajas de lechones
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas52<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+sum(cerdas52$Viv-cerdas52$NUM.LECHONES)
+```
+
+53. % Bajas hasta destete sobre el total de nacidos vivos
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas53<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+NV<-sum(cerdas53$Viv)
+AD<-sum(cerdas53$Ado)
+RET<-sum(cerdas53$Ret)
+D<-sum(cerdas53$NUM.LECHONES)
+Porc.Bajas.NV<-(NV+AD-RET-D)/(NV+AD-RET)
+Porc.Bajas.NV*100
+```
+54. % Bajas hasta destete sobre el total de nacidos:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas54<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+NT<-sum(cerdas54$Viv+cerdas54$Mue)
+AD<-sum(cerdas54$Ado)
+RET<-sum(cerdas54$Ret)
+D<-sum(cerdas54$NUM.LECHONES)
+Porc.Bajas.NT<-(NT+AD-RET-D)/(NT+AD-RET)
+Porc.Bajas.NT*100
+```
+
+55. Nº Adoptados
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas55<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+sum(cerdas55$Ado)
+```
+
+56. Nº Cedidos (Nº de retirados)
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas56<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+sum(cerdas56$Ret)
+```
+
+57. Índice Adoptados-Cedidos
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas57<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+AD<-sum(cerdas57$Ado)
+RET<-sum(cerdas57$Ret)
+D<-sum(cerdas57$NUM.LECHONES)
+Indice.ADRET<-(AD-RET)/D
+Indice.ADRET
+```
+
+58. Lechones Destetados 1ª cubrición
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas58<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff & df$Rep==1)
+mean(cerdas58$NUM.LECHONES)
+sum(cerdas58$NUM.LECHONES)
+```
+
+59. Nº total lechones destetados
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas59<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+sum(cerdas59$NUM.LECHONES)
+```
+
+60. Lechones Destetados /camada
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas60<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+mean(cerdas60$NUM.LECHONES)
+```
+
+61. Nº Lechones lactantes
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas61<-subset(df,df$Sexo==1 & df$Fecha.Parto<Ff & df$FECHA.DESTETE>Ff  )
+sum(cerdas61$Viv-cerdas61$Ret+cerdas61$Ado) 
+```
+
+62. Lechones destetados /cerda presente /año
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas62<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+D<-sum(cerdas62$NUM.LECHONES)
+D.cerda.año<-(D/medio.cerdas.presentes)*(365/as.numeric(Ff-Fi-1))
+D.cerda.año
+```
+
+63. Lechones destetados /cerda 1ª cubrición /año
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas63<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+D<-sum(cerdas63$NUM.LECHONES)
+D.cerda1a.año<-(D/medio.cerdas.presentes1aCub)*(365/as.numeric(Ff-Fi-1))
+D.cerda1a.año
+```
+
+64. Lechones destetados /cerda 200 días /año
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas64<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+D<-sum(cerdas64$NUM.LECHONES)
+D.cerda200.año<-(D/medio.cerdas.presentes200)*(365/as.numeric(Ff-Fi-1))
+D.cerda200.año
+```
+
+65. Lechones destetados /cerda productiva /año
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas65<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff )
+D<-sum(cerdas65$NUM.LECHONES)
+dest<-nrow(cerdas65)
+D.cerdaprod.año<-(D/dest)*(365/IP)
+D.cerdaprod.año
+```
+
+66. Lechones destetados /cerda de baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas66<-subset(df, df$Fecb>Fi & df$Fecb<Ff)
+cerdasbaja<-unique(as.character(cerdas66$Animal))
+cerdas.baja<-df[df$Animal%in%cerdasbaja,]
+D.cerdas.baja<-aggregate(NUM.LECHONES ~ Animal, cerdas.baja, sum)
+mean(D.cerdas.baja$NUM.LECHONES)
+sum(D.cerdas.baja$NUM.LECHONES)
+sum(cerdas.baja$NUM.LECHONES[!is.na(cerdas.baja$NUM.LECHONES)])/102
+```
+
+67. Días improductivos /cerda presente y año
+Anterior
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+
+Cnc<-c()
+C1<-c()
+Ci<-c()
+Cb<-c()
+Dur.Total<-c()
+for (i in 2:nrow(df)) {
+  if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & is.na(df$Fecha.Cub[i]) & df$Animal[i]!=df$Animal[i+1]& df$Baja[i]=="1" & df$Sexo[i]==1) {
+    Cnc<-c(Cnc,df$Fecb[i]-df$Fece[i])
+    Dur.Total<-c(Dur.Total,df$Fecb[i]-df$Fece[i])
+  }
+  if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]=="01" ){
+    C1<-c(C1,df$Fecha.Cub[i]-df$Fece[i])
+      if(df$Tipo.Parto[i]==0){
+      
+      Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$Fece[i])
+      }
+    if(df$Tipo.Parto[i]==1){
+       Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$Fece[i])
+    }
+     
+  }
+  if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]!="01" & df$Ciclo[i]!="00"& df$Animal[i]==df$Animal[i-1] ){
+    
+    if(df$Tipo.Parto[i-1]==0){
+      
+      Ci<-c(Ci,df$Fecha.Cub[i]-df$FECHA.DESTETE[i-1])
+      
+      if(df$Tipo.Parto[i]==0){
+      
+      Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$FECHA.DESTETE[i-1])
+      }
+      if(df$Tipo.Parto[i]==1){
+       Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$FECHA.DESTETE[i-1])
+    }
+      }
+    if(df$Tipo.Parto[i-1]==1){
+       Ci<-c(Ci,df$Fecha.Cub[i]-df$Fecha.Parto[i-1])
+       
+       if(df$Tipo.Parto[i]==0){
+      
+      Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$Fecha.Parto[i-1])
+      }
+    if(df$Tipo.Parto[i]==1){
+       Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$Fecha.Parto[i-1])
+    }
+    }
+  }
+  if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & df$Ciclo[i]!="00" & df$Animal[i]!=df$Animal[i+1] & df$Baja[i]=="1" & df$Sexo[i]==1){
+     if(df$Tipo.Parto[i-1]=="0"){
+      
+      Cb<-c(Cb,df$Fecb[i]-df$FECHA.DESTETE[i-1])
+      Dur.Total<-c(Dur.Total,df$Fecb[i]-df$FECHA.DESTETE[i-1])
+      }
+    if(df$Tipo.Parto[i-1]=="1"){
+      Cb<-c(Cb,df$Fecb[i]-df$Fecha.Parto[i-1])
+       Dur.Total<-c(Dur.Total,df$Fecb[i]-df$Fecha.Parto[i-1])
+      
+    }
+    
+  }
+}
+cerdas67ap<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+NPcp<-nrow(cerdas67ap)
+```
+
+Actual
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+Cnc<-c()
+C1<-c()
+Ci<-c()
+Cb<-c()
+Dur.Total<-c()
+DG<-c()
+DL<-c()
+
+
+for (i in 2:(nrow(df)-1)) {
+  
+    if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & is.na(df$Fecha.Cub[i]) & df$Animal[i]!=df$Animal[i+1]& df$Baja[i]=="1" & df$Sexo[i]==1) {
+    
+         Cnc<-c(Cnc,df$Fecb[i]-df$Fece[i])
+          Dur.Total<-c(Dur.Total,df$Fecb[i]-df$Fece[i])
+    }
+  
+  
+     if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]=="01"  ){
+         
+          pos<-tail(which(!is.na(df[i,13:17])),1)
+          C1<-c(C1,as.numeric(df[i,13:17][pos])-as.numeric(df$Fece[i]))
+          
+          if(df$Tipo.Parto[i]==0){
+      
+               Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$Fece[i])
+               
+                    pos<-tail(which(!is.na(df[i,13:17])),1)
+               DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+               DL<-c(DL,df$FECHA.DESTETE[i]-df$Fecha.Parto[i])  
+          }
+          
+         else if(df$Tipo.Parto[i]==1){
+           
+               Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$Fece[i])
+               
+               pos<-tail(which(!is.na(df[i,13:17])),1)
+               DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+          }
+    
+    }
+  
+     if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]!="01" & df$Ciclo[i]!="00" & df$Animal[i]==df$Animal[i-1] ){
+    
+          if(df$Tipo.Parto[i-1]==0){
+                   pos<-tail(which(!is.na(df[i,13:17])),1)
+                   Ci<-c(Ci,as.numeric(df[i,13:17][pos])-as.numeric(df$FECHA.DESTETE[i-1]))
+      
+                if(df$Tipo.Parto[i]==0){
+        
+                    Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$FECHA.DESTETE[i-1])
+                    
+                    pos<-tail(which(!is.na(df[i,13:17])),1)
+                    DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+                    DL<-c(DL,df$FECHA.DESTETE[i]-df$Fecha.Parto[i])  
+                    
+                }
+                   
+                else if(df$Tipo.Parto[i]==1){
+                 
+                    Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$FECHA.DESTETE[i-1])
+                    pos<-tail(which(!is.na(df[i,13:17])),1)
+                    DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+                }
+          }
+      
+      
+          else if(df$Tipo.Parto[i-1]==1){
+                  pos<-tail(which(!is.na(df[i,13:17])),1)
+                  Ci<-c(Ci,as.numeric(df[i,13:17][pos])-as.numeric(df$Fecha.Parto[i-1]))
+      
+                if(df$Tipo.Parto[i]==0){
+                  Dur.Total<-c(Dur.Total,df$FECHA.DESTETE[i]-df$Fecha.Parto[i-1])
+                  
+                  pos<-tail(which(!is.na(df[i,13:17])),1)
+                  DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+                  DL<-c(DL,df$FECHA.DESTETE[i]-df$Fecha.Parto[i])
+                      
+                }
+              
+                else if(df$Tipo.Parto[i]==1){
+                  
+                     Dur.Total<-c(Dur.Total,df$Fecha.Parto[i]-df$Fecha.Parto[i-1])
+                     
+                     pos<-tail(which(!is.na(df[i,13:17])),1)
+                     DG<-c(DG,as.numeric(df$Fecha.Parto[i])-as.numeric(df[i,13:17][pos]))
+                }
+          }
+    }
+    
+    if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & df$Ciclo[i]!="00" & df$Animal[i]!=df$Animal[i+1] & df$Baja[i]=="1" & df$Sexo[i]==1){
+        if(is.na(df$Fecha.Parto[i]) && df$Tipo.Parto[i-1]=="0"){
+      
+          Cb<-c(Cb,df$Fecb[i]-df$FECHA.DESTETE[i-1])
+          Dur.Total<-c(Dur.Total,df$Fecb[i]-df$FECHA.DESTETE[i-1])
+        }
+    
+        else if(is.na(df$Fecha.Parto[i]) && df$Tipo.Parto[i-1]=="1"){
+      
+          Cb<-c(Cb,df$Fecb[i]-df$Fecha.Parto[i-1])
+          Dur.Total<-c(Dur.Total,df$Fecb[i]-df$Fecha.Parto[i-1])
+      
+        }
+        else if(!is.na(df$Fecha.Parto[i]) && df$Tipo.Parto[i]=="0"){
+      
+         Cb<-c(Cb,df$Fecb[i]-df$FECHA.DESTETE[i])
+         Dur.Total<-c(Dur.Total,df$Fecb[i]-df$FECHA.DESTETE[i])
+      
+        }
+        else if(!is.na(df$Fecha.Parto[i]) && df$Tipo.Parto[i]=="1"){
+      
+          Cb<-c(Cb,df$Fecb[i]-df$Fecha.Parto[i])
+          Dur.Total<-c(Dur.Total,df$Fecb[i]-df$Fecha.Parto[i])
+      
+        }
+    
+      }
+   
+}
+length(Ci)
+c123<-subset(df,df$Fecb<Ff & df$Fecb>Fi & df$Ciclo=="00")
+nrow(c123)
+```
+
+
+a) Con período recría–pubertad y con baja
+```{r}
+
+Cnc<-Cnc[Cnc>0]
+C1<-C1[C1>0]
+Ci<-Ci[Ci>0]
+
+Cb<-Cb[Cb>0]
+DTC<-c(Cnc,C1,Ci,Cb)
+ciclos<-length(DTC)
+DTC<-sum(DTC)
+
+Dias.improd.cerd.año<-((DTC)/ciclos)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
+Dias.improd.cerd.año
+length(Dur.Total)
+ciclos
+```
+
+```{r}
+DTC<-c(Cnc,C1,Ci,Cb)
+ciclos<-length(DTC)
+DTC<-sum(DTC)
+Dias.improd.cerd.año<-((DTC)/ciclos)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
+Dias.improd.cerd.año
+Dias.improd.cerd.año<-((sum(Dur.Total)-sum(DL)-sum(DG))/ciclos)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
+Dias.improd.cerd.año
+length(Dur.Total)
+ciclos
+
+```
+
+
+
+
+
+b) SIN período recría – pubertad y CON baja
+```{r}
+
+Ci<-Ci[Ci>0]
+Cb<-Cb[Cb>0]
+DTC_b<-c(Ci,Cb)
+ciclos_b<-length(DTC_b)
+DTC_b<-sum(DTC_b)
+
+
+Dias.improd.cerd.año.Pub.Bja<-((DTC_b)/ciclos_b)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
+Dias.improd.cerd.año.Pub.Bja
+```
+
+c) Sin período recría – pubertad y SIN baja
+```{r}
+Ci<-Ci[Ci>0]
+
+DTC_c<-c(Ci)
+ciclos_c<-length(DTC_c)
+DTC_c<-sum(DTC_c)
+
+
+Dias.improd.cerd.año.Pub.Bja<-((DTC_c)/ciclos_c)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
+Dias.improd.cerd.año.Pub.Bja
+
+
+```
+
+
+
+68. Días improductivos /ciclo:
+
+a. CON período recría – pubertad y CON baja
+```{r}
+Cnc<-Cnc[Cnc>0]
+C1<-C1[C1>0]
+Ci<-Ci[Ci>0]
+Cb<-Cb[Cb>0]
+DTC<-c(Cnc,C1,Ci,Cb)
+ciclos<-length(DTC)
+DTC<-sum(DTC)
+
+
+Dias.improd.ciclo<-((DTC)/ciclos)
+Porc.Dias.improd.ciclo<-(Dias.improd.ciclo*100)/DTC
+Porc.Dias.improd.ciclo
+
+
+```
+
+
+b. SIN período recría – pubertad y CON baja
+```{r}
+Ci<-Ci[Ci>0]
+Cb<-Cb[Cb>0]
+DTC<-c(Cnc,C1)
+ciclos<-length(DTC)
+DTC<-sum(DTC)
+
+
+Dias.improd.ciclo.Pub.Bja<-((DTC)/ciclos)
+Porc.Dias.improd.ciclo.Pub.Bja<-(Dias.improd.ciclo.Pub.Bja*100)/DTC
+Porc.Dias.improd.ciclo.Pub.Bja
+```
+
+
+c. SIN período recría – pubertad y SIN baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+
+Cnc<-c()
+C1<-c()
+Ci<-c()
+Cb<-c()
+for (i in 2:nrow(df)) {
+  if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & is.na(df$Fecha.Cub[i]) & df$Animal[i]!=df$Animal[i+1]& df$Baja[i]=="1" ){
+    Cnc<-c(Cnc,df$Fecb[i]-df$Fece[i])
+  }
+  if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]=="01" ){
+    C1<-c(C1,df$Fecha.Cub[i]-df$Fece[i])
+  }
+  if(df$Fecha.Cub[i]<Ff & df$Fecha.Cub[i]>Fi & df$Ciclo[i]!="01" & df$Ciclo[i]!="00"& cerdas40$Animal[i]==cerdas40$Animal[i-1] ){
+    Ci<-c(Ci,df$Fecha.Cub[i]-df$Fecha.Cub[i-1])
+  }
+  if(df$Fecb[i]<Ff & df$Fecb[i]>Fi & df$Ciclo[i]!="00" & df$Animal[i]!=df$Animal[i+1] & df$Baja[i]=="1" ){
+    Cb<-c(Cb,df$Fecb[i]-df$Fecha.Cub[i])
+  }
+}
+DTC<-sum(Ci)
+
+DG<-c()
+cerdas68c<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff & df$Tipo.Parto=="0")
+
+for (i in 1:nrow(cerdas68c)) {
+  
+     pos<-tail(which(!is.na(cerdas68c[i,13:17])),1)
+    
+    DG<-c(DG,as.numeric(cerdas68c$Fecha.Parto[i]-as.numeric(cerdas68c[i,13:17][pos])))
+}
+DG<-sum(DG)
+
+cerdas68cl<-subset(df,df$Sexo==1 & df$FECHA.DESTETE>Fi & df$FECHA.DESTETE<Ff)
+lac<-as.numeric(sum(cerdas68cl$FECHA.DESTETE-cerdas68cl$Fecha.Parto))
+
+
+Dias.improd.ciclo.Pub<-((sum(Dur.Total)-DG-lac)/length(Dur.Total))
+
+Porc.Dias.improd.ciclo.Pub<-(Dias.improd.ciclo.Pub*100)/sum(Dur.Total)
+```
+
+69. Intervalo Alta-Baja en la Explotación:
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas69<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1)
+cerdasbaja<-unique(as.character(cerdas69$Animal))
+Altabaja<-df[df$Animal%in%cerdasbaja,]
+Id.animal<-names(which(table(Altabaja$Animal)==1))
+dias.a.b<-df[df$Animal%in%Id.animal,]
+mean(c(dias.a.b$Fecb-dias.a.b$Fece))
+```
+
+70. Intervalo último movimiento - Baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas70<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1)
+cerdasbaja<-unique(as.character(cerdas70$Animal))
+Altabaja<-df[df$Animal%in%cerdasbaja,]
+
+ultimo<-c()
+for (i in 1:(nrow(Altabaja)-1)) {
+  if(Altabaja$Animal[i]!=Altabaja$Animal[i+1]){
+    if(Altabaja$Tipo.Parto[i]==0){
+      ultimo<-c(ultimo,Altabaja$Fecb[i]-Altabaja$FECHA.DESTETE[i])
+    }
+    if(Altabaja$Tipo.Parto[i]==1){
+      ultimo<-c(ultimo,Altabaja$Fecb[i]-Altabaja$Fecha.Parto[i])
+    }
+    if(is.na(Altabaja$Fecha.Parto[i]) & !is.na(Altabaja$Fecha.Cub[i])){
+      pos<-tail(which(!is.na(Altabaja[i,13:17])),1)
+    
+      ultimo<-c(ultimo,Altabaja$Fecb[i]-as.numeric(Altabaja[i,13:17][pos]))
+    }
+  }
+  else if(i+1==nrow(Altabaja)){
+   if(Altabaja$Tipo.Parto[i+1]==0){
+      ultimo<-c(ultimo,Altabaja$Fecb[i+1]-Altabaja$FECHA.DESTETE[i+1])
+    }
+    if(Altabaja$Tipo.Parto[i+1]==1){
+      ultimo<-c(ultimo,Altabaja$Fecb[i+1]-Altabaja$Fecha.Parto[i+1])
+    }
+    if(is.na(Altabaja$Fecha.Parto[i+1]) & !is.na(Altabaja$Fecha.Cub[i+1])){
+      pos<-tail(which(!is.na(Altabaja[i,13:17])),1)
+    
+      ultimo<-c(ultimo,Altabaja$Fecb[i+1]-as.numeric(Altabaja[i+1,13:17][pos]))
+    }
+  }
+  
+}
+mean(ultimo)
+```
+
+71. Intervalo 1ªcubrición-baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas71<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1 )
+cerdasbaja<-unique(as.character(cerdas71$Animal))
+Altabaja<-df[df$Animal%in%cerdasbaja,]
+
+dias1a_baja<-c()
+
+
+for (i in 1:(nrow(Altabaja)-1)) {
+  if(Altabaja$Animal[i]!=Altabaja$Animal[i+1] & Altabaja$Ciclo[i]!="00" & is.na(Altabaja$Fecha.Parto[i])){
+    
+    dias1a_baja<-c(dias1a_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Cub[i])
+  }
+  else if(i+1==nrow(Altabaja) & is.na(Altabaja$Tipo.Parto[i])){
+    dias1a_baja<-c(dias1a_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Cub[i+1])
+  }
+}
+mean(dias1a_baja)
+```
+
+72. Intervalo Aborto-Baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas72<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1)
+diasAb_baja<-c()
+for (i in 1:(nrow(cerdas72)-1)) {
+  if(cerdas72$Animal[i]!=cerdas72$Animal[i+1] & cerdas72$Tipo.Parto[i]==1){
+    
+    diasAb_baja<-c(diasAb_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Parto[i])
+  }
+  else if(i+1==nrow(Altabaja)& cerdas72$Tipo.Parto[i+1]==1){
+    diasAb_baja<-c(diasAb_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Parto[i+1])
+  }
+}
+mean(diasAb_baja)
+```
+
+73. Intervalo Destete-Baja
+```{r}
+Fi<-dmy("15.12.2000")
+Ff<-dmy("15.12.2001")
+cerdas73<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1)
+diasDest_baja<-c()
+for (i in 1:(nrow(cerdas73)-1)) {
+  if(cerdas73$Animal[i]!=cerdas73$Animal[i+1] & cerdas73$Tipo.Parto[i]==0){
+    
+    diasDest_baja<-c(diasDest_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Parto[i])
+  }
+  else if(i+1==nrow(Altabaja)& cerdas73$Tipo.Parto[i+1]==0){
+    diasDest_baja<-c(diasDest_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Parto[i+1])
+  }
+}
+mean(diasDest_baja)
+```
+
+
+
