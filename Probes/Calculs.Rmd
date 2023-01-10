@@ -1,6 +1,8 @@
 ---
 title: "CÀLCULS"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 date: "2022-12-05"
 ---
 
@@ -1421,6 +1423,7 @@ a) Con período recría–pubertad y con baja
 DTC<-c(Cnc,C1,Ci,Cb)
 ciclos<-length(DTC)
 DTC<-sum(DTC)
+NPcp<-nrow(subset(df,df$FECHA.DESTETE>Fi&df$FECHA.DESTETE<Ff))
 
 Dias.improd.cerd.año<-((DTC)/ciclos)*(NPcp/medio.cerdas.presentes)*(360/as.numeric(Ff-Fi))
 Dias.improd.cerd.año
@@ -1740,13 +1743,13 @@ cerdas71<-subset(df, df$Fecb>Fi & df$Fecb<Ff&df$Sexo==1 )
 dias1a_baja<-c()
 
 
-for (i in 1:(nrow(Altabaja)-1)) {
-  if(Altabaja$Animal[i]!=Altabaja$Animal[i+1] & Altabaja$Ciclo[i]!="00" & is.na(Altabaja$Fecha.Parto[i])){
+for (i in 1:(nrow(cerdas71)-1)) {
+  if(cerdas71$Animal[i]!=cerdas71$Animal[i+1] & cerdas71$Ciclo[i]!="00" & is.na(cerdas71$Fecha.Parto[i])){
     
-    dias1a_baja<-c(dias1a_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Cub[i])
+    dias1a_baja<-c(dias1a_baja,  cerdas71$Fecb[i]-cerdas71$Fecha.Cub[i])
   }
-  else if(i+1==nrow(Altabaja) & is.na(Altabaja$Tipo.Parto[i])){
-    dias1a_baja<-c(dias1a_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Cub[i+1])
+  else if(i+1==nrow(cerdas71) & is.na(cerdas71$Tipo.Parto[i])){
+    dias1a_baja<-c(dias1a_baja,  cerdas71$Fecb[i+1]-cerdas71$Fecha.Cub[i+1])
   }
 }
 mean(dias1a_baja)
@@ -1761,10 +1764,10 @@ diasAb_baja<-c()
 for (i in 1:(nrow(cerdas72)-1)) {
   if(cerdas72$Animal[i]!=cerdas72$Animal[i+1] & cerdas72$Tipo.Parto[i]==1){
     
-    diasAb_baja<-c(diasAb_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Parto[i])
+    diasAb_baja<-c(diasAb_baja,  cerdas72$Fecb[i]-cerdas72$Fecha.Parto[i])
   }
-  else if(i+1==nrow(Altabaja)& cerdas72$Tipo.Parto[i+1]==1){
-    diasAb_baja<-c(diasAb_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Parto[i+1])
+  else if(i+1==nrow(cerdas72)& cerdas72$Tipo.Parto[i+1]==1){
+    diasAb_baja<-c(diasAb_baja,  cerdas72$Fecb[i+1]-cerdas72$Fecha.Parto[i+1])
   }
 }
 mean(diasAb_baja)
@@ -1779,10 +1782,10 @@ diasDest_baja<-c()
 for (i in 1:(nrow(cerdas73)-1)) {
   if(cerdas73$Animal[i]!=cerdas73$Animal[i+1] & cerdas73$Tipo.Parto[i]==0){
     
-    diasDest_baja<-c(diasDest_baja,  Altabaja$Fecb[i]-Altabaja$Fecha.Parto[i])
+    diasDest_baja<-c(diasDest_baja,  cerdas73$Fecb[i]-cerdas73$FECHA.DESTETE[i])
   }
   else if(i+1==nrow(Altabaja)& cerdas73$Tipo.Parto[i+1]==0){
-    diasDest_baja<-c(diasDest_baja,  Altabaja$Fecb[i+1]-Altabaja$Fecha.Parto[i+1])
+    diasDest_baja<-c(diasDest_baja,  cerdas73$Fecb[i+1]-cerdas73$FECHA.DESTETE[i+1])
   }
 }
 mean(diasDest_baja)
