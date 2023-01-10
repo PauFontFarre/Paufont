@@ -387,17 +387,12 @@ Ff<-dmy("15.12.2001")
 
 cerdas2<-subset(df,df$Fecb>Fi&df$Fece<Fi&df$Sexo==1&df$Ciclo=="00") #Sows in the farm on the start date
 NSI<-nrow(cerdas2)
-NSI
 cerdas2.1<-subset(df,df$Fecb>Fi&df$Fece<Ff&df$Sexo==1&df$Ciclo=="00") #Sows in the farm between the period
-nrow(cerdas2.1)
 Fa<-cerdas2.1[cerdas2.1$Fece>Fi,]
 alt<-Ff-Fa$Fece
-length(alt)
 altas<-sum(alt+1)
-
 Fb<-cerdas2.1[cerdas2.1$Fecb<Ff,]
 baj<-Ff-Fb$Fecb
-length(baj)
 bajas<-sum(baj+1)
 
 medio.cerdas.presentes<-NSI+(as.numeric(altas-bajas)/as.numeric(Ff-Fi+1))
